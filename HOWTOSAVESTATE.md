@@ -60,7 +60,8 @@ order. Guide content does not go here; it goes in `docs/`.
 from this folder and nothing else, so every reader-facing page lives here and nothing else
 does. Readers on GitHub and readers on the website see these same files. Working notes,
 decisions and plans never go in `docs/`, because anything in it is published. Planned pages
-are listed under Queued in `NEXT.md`. None exist yet as of 2026-11-07.
+are listed under Queued in `NEXT.md`. As of 2026-11-07 it holds `_config.yml` (site title,
+description, theme) and `index.md` (the home page).
 
 **5. `.claude/settings.json`, agent guardrails.** Blocks `git push` and the bulk staging and
 commit commands, and runs the session-start re-check. Untracked as of 2026-11-07. Whether
@@ -90,6 +91,19 @@ the real thing rather than a description of it, and keep them here once they wor
   because those lag and change without notice.
 - **A check that cannot run here** (no credentials, a tool that will not start) is written
   down as not run, never quietly skipped.
+
+For this project that means the GitHub Pages site. These worked on 2026-11-07:
+
+```sh
+gh api repos/fbonds/vibe-coding-howto/pages --jq '{status, source, html_url}'          # settings
+gh api repos/fbonds/vibe-coding-howto/pages/builds/latest --jq '{status, commit, error: .error.message}'
+gh run list -R fbonds/vibe-coding-howto -L 3                                          # build runs
+curl -s -o live.html -w 'HTTP %{http_code}\n' "https://fbonds.github.io/vibe-coding-howto/?cb=$(date +%s)"
+```
+
+Then confirm the build's commit is the one you expect, and check the fetched page's text
+against the files in `docs/`. Jekyll changes straight quotes to curly ones, so the
+comparison has to allow for that (see Traps in `NEXT.md`).
 
 **The test suite**, and anything that can make a green run lie: a stale build directory, a
 runner that silently skips files, a fixture that regenerates what a test stripped.

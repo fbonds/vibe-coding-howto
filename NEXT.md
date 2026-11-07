@@ -8,7 +8,8 @@
 > git ls-remote --heads --tags origin | tail -5   # what the remote actually has
 > git rev-list --left-right --count origin/main...main   # left = behind, right = unpushed
 > git status -sb
-> # add the command that checks what this project publishes or deploys
+> gh api repos/fbonds/vibe-coding-howto/pages/builds/latest --jq '{status, commit, error: .error.message}'
+> curl -s -w '\nHTTP %{http_code}\n' "https://fbonds.github.io/vibe-coding-howto/?cb=$(date +%s)"
 > ```
 >
 > The rest of the checks, and the procedure for updating this file at the end of a session,
@@ -110,6 +111,16 @@ yet" if you cannot tell. Do not delete one. Specific traps go below them.
 - Which registry reports metadata that differs from the artifact?
 - Which cache can serve an old copy?
 
+Answers, 2026-11-07: not known yet for all four. GitHub Pages is the only thing this project
+publishes. Its settings page and its build API have not been seen to disagree, and nobody
+has tested whether its CDN serves a stale page after a deploy. Fetch with a `?cb=` cache
+buster until that is known.
+
+**Jekyll rewrites straight quotes as curly ones.** The site title built from
+`docs/_config.yml` showed `beginner’s` where the file has `beginner's` (seen 2026-11-07). A
+check that compares the live page to the Markdown character for character will report a
+false mismatch on every apostrophe and quotation mark unless it allows for this.
+
 ## Decided, do not redo
 
 What was settled and why, what was ruled out and why, and anything the owner said not to
@@ -197,21 +208,35 @@ What is agreed but waiting, with a pointer to wherever the full proposal is writ
 - `docs/advanced/driving-other-apps.md`: Unity, Photoshop, Excel and similar.
 - `docs/advanced/mcp.md`: what MCP servers are, adding and using one.
 
-**Owner actions, not the agent's:** turn on GitHub Pages for `main` and `/docs` in the repo
-settings, and push.
+Done from this list as of 2026-11-07: `docs/_config.yml`, and `docs/index.md` as a
+placeholder that lists the planned pages as plain text, without links. Each item becomes a
+link when its page exists.
+
+**Owner actions, not the agent's:** pushing. Pages was turned on by the owner on 2026-11-07,
+source `main` and `/docs`, read back from the Pages API.
 
 ## Committed, pushed, released: three separate questions
 
 As of 2026-11-07, when this was written.
 
-**Uncommitted.** What is in the working tree and not committed, and whether it was
-approved.
+**Uncommitted.** `.claude/settings.json` is untracked. The owner has not said whether to
+commit it.
 
-**Unpushed.** The command that answers it, plus a dated snapshot marked as not to be
-trusted, because the owner pushes and that moves with no commit here to record it.
+**Unpushed.** Answer it with `git rev-list --left-right --count origin/main...main`. Snapshot
+from 2026-11-07, not to be trusted: `0 0` with `origin/main` at `29a144b`, before this
+update to `NEXT.md` was committed.
 
-**Unreleased or undeployed.** What is committed but not yet in front of anyone, and how that
-was checked. Also what was last released or deployed, when, and how that was checked.
+**Unreleased or undeployed.** The website is the only thing deployed. Live at
+https://fbonds.github.io/vibe-coding-howto/ since 2026-11-07. The Pages build of `29a144b`
+reported `"status":"built"` with no error. The page fetched with a cache buster returned
+HTTP 200, its stylesheet link carried `?v=29a144b...`, and every piece of text in
+`docs/index.md` was found on it. That comparison was shown failing by adding a line not in
+the file, which it reported as missing. Not checked: how the page looks in a browser, and
+whether the page holds text that is not in `index.md`. The comparison script was a one-off
+in a temporary folder and is not in the repo.
+
+The two earlier builds, of `788b435` and `154caf9`, failed because `docs/` did not exist
+yet. Jekyll stopped with `No such file or directory @ dir_chdir0 - /github/workspace/docs`.
 
 ## Open, not blocking
 
@@ -219,5 +244,7 @@ Anything known, unresolved, and not in the way.
 
 **Links between pages, unverified as of 2026-11-07.** GitHub needs links to `.md` files and
 the website needs `.html`. The working assumption is that GitHub Pages converts `.md` links
-automatically by default. Nobody has checked. Verify it against the live site once Pages is
-on, including a deliberately broken link to show the check can fail.
+automatically by default. The build log of 2026-11-07 lists `jekyll-relative-links` among
+the plugins Pages loads, which is the plugin meant to do that. No link has been tested on the
+live site yet, because no page links to another. Verify it when the first one does, including
+a deliberately broken link to show the check can fail.
