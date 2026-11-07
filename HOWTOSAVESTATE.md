@@ -52,9 +52,19 @@ Remove finished items from In flight, as that section says.
 **2. `HOWTOSAVESTATE.md`, this file.** The procedure for ending a session, and the index of
 what every file here is for.
 
-**3. VIBE-CODING-HOWTO files.** List them here: the design document, the roadmap, the public docs,
-the generated artifacts and their sources. For each, say what belongs in it and what does
-not, so the next session puts things in the right place rather than in `NEXT.md`.
+**3. `README.md`, the repo's front page on GitHub.** Written for a beginner who landed on the
+repo. It says what the guide is, links to the website, and lists the guide pages in reading
+order. Guide content does not go here; it goes in `docs/`.
+
+**4. `docs/`, the guide itself and the source of the website.** GitHub Pages builds the site
+from this folder and nothing else, so every reader-facing page lives here and nothing else
+does. Readers on GitHub and readers on the website see these same files. Working notes,
+decisions and plans never go in `docs/`, because anything in it is published. Planned pages
+are listed under Queued in `NEXT.md`. None exist yet as of 2026-11-07.
+
+**5. `.claude/settings.json`, agent guardrails.** Blocks `git push` and the bulk staging and
+commit commands, and runs the session-start re-check. Untracked as of 2026-11-07. Whether
+its deny patterns match the bare commands has not been tested.
 
 ## Step 1: check the external world, now
 

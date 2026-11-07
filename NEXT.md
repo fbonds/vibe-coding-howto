@@ -15,9 +15,10 @@
 > are in `HOWTOSAVESTATE.md`. Stored memories load before any file and go stale the same
 > way: check them against the repo rather than trusting them.
 
-Updated 2026-11-07. Working state for VIBE-CODING-HOWTO. Say here which file is the design, which is
-the roadmap, and which is the public documentation, so this file is not mistaken for any
-of them.
+Updated 2026-11-07. Working state for VIBE-CODING-HOWTO. There is no separate design
+document yet: the design is the Decided section below. The roadmap is the Queued section
+below. The public documentation is `docs/`, which GitHub Pages publishes as the website, and
+`README.md`.
 
 ## Standards
 
@@ -119,8 +120,41 @@ An entry here is not rewritten. To change a decision, get the owner's approval, 
 new entry with its date, its reasoning and the entry it replaces. The only edit to the old
 entry is one added line saying what replaced it and when.
 
-<!-- Empty on day one. Add a decision the day it is made, with its reasoning, not its
-     conclusion alone. -->
+<!-- Add a decision the day it is made, with its reasoning, not its conclusion alone. -->
+
+**D1, 2026-11-07. The website is built by GitHub Pages from the Markdown files in `docs/`.**
+The owner requires the website and the GitHub repo to stay in sync always. One set of files
+serves both, so there is no second copy to drift. Ruled out: a separate hand-built HTML site
+with an automated check comparing it to the Markdown, because sync would be enforced rather
+than guaranteed and there would be two things to maintain. Ruled out: a static site generator
+such as MkDocs or Astro deployed by a GitHub Action, because it adds a build step that a
+beginner reading the repo would see and have to understand.
+
+**D2, 2026-11-07. Pages serves from the `docs/` folder, not the repo root.** Serving from the
+root would publish `CLAUDE.md`, `NEXT.md` and `HOWTOSAVESTATE.md` as web pages.
+
+**D3, 2026-11-07. The install page covers both ways to pay for Claude Code**: signing in with
+a Claude Pro or Max subscription, and using an Anthropic API key. It explains how to choose
+between them. Ruled out: covering only one.
+
+**D4, 2026-11-07. The first project is a browser game in a single HTML/JavaScript file**,
+then published on GitHub Pages so the reader can share a link. Nothing extra has to be
+installed on Windows, Mac or Linux. Ruled out: a Python terminal game, because installing Python
+differs by OS. Ruled out: offering several starter projects for the reader to pick from.
+
+**D5, 2026-11-07. project-kit is linked, not copied.** The guide links to
+https://github.com/fbonds/project-kit and gives the steps to copy its three files into the
+reader's own project. project-kit stays the only source of its own content. Ruled out:
+vendoring a copy here, because two copies drift. Ruled out: turning project-kit into a
+GitHub template repo.
+
+**D6, 2026-11-07. The guide covers Windows (PowerShell), Mac (Terminal) and Linux (its
+terminal)** wherever the steps differ. The owner asked for Windows and Mac in the original
+scope, and added Linux the same day.
+
+**D7, 2026-11-07. Facts about tools are checked against official docs when each page is
+written, never from memory.** That covers install commands, sign-in steps, MCP setup, and
+what Claude in Chrome and computer use require. These change without notice.
 
 ## In flight
 
@@ -133,6 +167,38 @@ section it belongs in.
 ## Queued, unscheduled, and not to be started unprompted
 
 What is agreed but waiting, with a pointer to wherever the full proposal is written out.
+
+**The guide, as the owner scoped it on 2026-11-07.** It walks a beginner through:
+
+1. What vibe coding, Claude Code, a CLI and GitHub are.
+2. Using Terminal (Mac) or PowerShell (Windows). Linux added by the owner the same day.
+3. Installing the Claude Code CLI.
+4. Creating a GitHub account.
+5. Using https://github.com/fbonds/project-kit.
+6. Building a first project, a simple game.
+7. A website presenting all of it, always in sync with the repo (see D1 and D2).
+8. Advanced topics: Claude in Chrome driving web activities; Claude controlling the local
+   computer; Claude running other products such as Unity, Photoshop and Excel; MCP servers
+   and how to use them.
+
+**Approved layout, 2026-11-07.** Built one page at a time, each shown as a diff first:
+
+- `README.md`: what the repo is, link to the website, table of contents.
+- `docs/_config.yml`: site title and theme.
+- `docs/index.md`: start here, who it is for, reading order.
+- `docs/01-what-is-this.md`: vibe coding, Claude Code, CLIs, git vs GitHub.
+- `docs/02-terminal.md`: Mac Terminal, Windows PowerShell and the Linux terminal side by side.
+- `docs/03-install-claude-code.md`: install, then subscription or API key and how to choose.
+- `docs/04-github.md`: account, installing git, connecting it to the computer.
+- `docs/05-project-kit.md`: what it does, copying its three files, the two sentences.
+- `docs/06-first-game.md`: one-file browser game, then publishing it on Pages.
+- `docs/advanced/claude-in-chrome.md`
+- `docs/advanced/controlling-your-computer.md`
+- `docs/advanced/driving-other-apps.md`: Unity, Photoshop, Excel and similar.
+- `docs/advanced/mcp.md`: what MCP servers are, adding and using one.
+
+**Owner actions, not the agent's:** turn on GitHub Pages for `main` and `/docs` in the repo
+settings, and push.
 
 ## Committed, pushed, released: three separate questions
 
@@ -150,3 +216,8 @@ was checked. Also what was last released or deployed, when, and how that was che
 ## Open, not blocking
 
 Anything known, unresolved, and not in the way.
+
+**Links between pages, unverified as of 2026-11-07.** GitHub needs links to `.md` files and
+the website needs `.html`. The working assumption is that GitHub Pages converts `.md` links
+automatically by default. Nobody has checked. Verify it against the live site once Pages is
+on, including a deliberately broken link to show the check can fail.
