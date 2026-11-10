@@ -167,6 +167,12 @@ scope, and added Linux the same day.
 written, never from memory.** That covers install commands, sign-in steps, MCP setup, and
 what Claude in Chrome and computer use require. These change without notice.
 
+**D8, 2026-11-10. The topic list is kept in two places, `README.md` and `docs/index.md`.**
+A beginner who lands on the GitHub repo sees the outline without leaving it. Whenever a page
+ships, both lists are updated in the same commit and checked against each other. Ruled out:
+cutting the README list to a link to the website, which avoids the second copy but hides the
+outline from GitHub readers.
+
 ## In flight
 
 What is being worked on now, and what state it is in. Remove an item when it is finished,
