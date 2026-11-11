@@ -60,8 +60,10 @@ order. Guide content does not go here; it goes in `docs/`.
 from this folder and nothing else, so every reader-facing page lives here and nothing else
 does. Readers on GitHub and readers on the website see these same files. Working notes,
 decisions and plans never go in `docs/`, because anything in it is published. Planned pages
-are listed under Queued in `NEXT.md`. As of 2026-11-07 it holds `_config.yml` (site title,
-description, theme) and `index.md` (the home page).
+are listed under Queued in `NEXT.md`. As of 2026-11-11 it holds `_config.yml` (site title,
+description, theme), `index.md` (the home page), `01-what-is-this.md` (page 1), and
+`assets/css/style.scss` (the site's look, see D9 in `NEXT.md`). The topic list in `index.md`
+must match the one in `README.md` (D8).
 
 **5. `.claude/settings.json`, agent guardrails.** Blocks `git push` and the bulk staging and
 commit commands, and runs the session-start re-check. Untracked as of 2026-11-07. Whether

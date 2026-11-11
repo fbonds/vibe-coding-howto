@@ -16,7 +16,7 @@
 > are in `HOWTOSAVESTATE.md`. Stored memories load before any file and go stale the same
 > way: check them against the repo rather than trusting them.
 
-Updated 2026-11-07. Working state for VIBE-CODING-HOWTO. There is no separate design
+Updated 2026-11-11. Working state for VIBE-CODING-HOWTO. There is no separate design
 document yet: the design is the Decided section below. The roadmap is the Queued section
 below. The public documentation is `docs/`, which GitHub Pages publishes as the website, and
 `README.md`.
@@ -121,6 +121,22 @@ buster until that is known.
 check that compares the live page to the Markdown character for character will report a
 false mismatch on every apostrophe and quotation mark unless it allows for this.
 
+**Sass compresses the live CSS, so a search with spaces finds nothing.** On 2026-11-10 a
+search of the live `style.css` for `backdrop-filter: blur(12px)` and `padding: 3rem
+!important` returned 0. Both rules were there, written `backdrop-filter:blur(12px)` and
+`padding:3rem !important`. Search the live CSS for values, or strip spaces first.
+
+**The Primer theme's utility classes use `!important`.** The page container carries `px-3`
+and the footer carries `border-top`, and a plain rule in `style.scss` loses to both. This
+showed in the 2026-11-10 browser preview as missing side padding and a white footer line.
+Overriding them needs `!important` too.
+
+**The Claude Code docs describe defaults that depend on the version.** The default
+permission mode in a terminal is `auto` from v2.1.283 on, and before that it depended on the
+plan. A page that says "Claude Code asks before it acts" is wrong for a default install as of
+2026-11-10. Read the "Which mode a session starts in" section of
+https://code.claude.com/docs/en/permission-modes before writing about permissions.
+
 ## Decided, do not redo
 
 What was settled and why, what was ruled out and why, and anything the owner said not to
@@ -173,6 +189,21 @@ ships, both lists are updated in the same commit and checked against each other.
 cutting the README list to a link to the website, which avoids the second copy but hides the
 outline from GitHub readers.
 
+**D9, 2026-11-10. The website is styled to match fletcherbonds.com**, the owner's own site,
+through `docs/assets/css/style.scss` on top of the Primer theme. That site is a JavaScript
+app styled with Tailwind CSS v4, so its stylesheet only works on its own markup. The values
+that give it its look were read from its CSS and from the browser's computed styles, and
+copied: background `#050508`, the cyber purple, pink, cyan and blue colors, the `Inter,
+system-ui` font stack, gradient text with a purple glow on headings, and the translucent
+"glass panel". Glow goes on headings only, to keep body text readable for beginners. Ruled
+out: linking to the site's live stylesheet, because its file name carries a build hash
+(`index-AK_RcK26.css` on 2026-11-10) that changes when its CSS changes, which would break the
+guide. Ruled out: pasting the Tailwind CSS in, because Jekyll pages do not carry its utility
+classes. Left out: the floating logos, star field, fixed navigation bar and chat button,
+which the site draws with JavaScript and would need a custom layout. That would be its own
+proposal. The look applies to the website only. GitHub shows the same `.md` files in its own
+style.
+
 ## In flight
 
 What is being worked on now, and what state it is in. Remove an item when it is finished,
@@ -180,6 +211,26 @@ because the git log holds it. Before removing it, move what the git log cannot h
 release or deploy goes to the Committed, pushed, released section, with its date and how it
 was checked, and anything else, such as a change made on a hosted service, goes to the
 section it belongs in.
+
+**Page 1, `docs/01-what-is-this.md`, committed as `94dc45a` on 2026-11-11, not pushed.** The
+same commit turned item 1 into a link in `docs/index.md` and `README.md`. After the owner
+pushes: check the Pages build of `94dc45a`, fetch the page, and test the link from the index
+on the live site, with a deliberately broken link to show the check can fail. That closes
+the links item under Open. Facts on the page and their sources, all checked 2026-11-10:
+
+- Karpathy coined "vibe coding": his own post https://karpathy.bearblog.dev/year-in-review-2025/
+  (19 Dec 2025) says so and links the tweet x.com/karpathy/status/1886192184808149383. The
+  date, 2 February 2025, is decoded from that tweet ID (2025-02-02T23:17:15Z). The quote
+  "something anyone can do" is from the same post.
+- What Claude Code is, its forms (desktop app, web, editor plugins, CLI), supported systems
+  (macOS 13+, Windows 10 1809+, Ubuntu 20.04+, Debian 10+, Alpine 3.19+, 4 GB RAM) and "The
+  free claude.ai plan does not include Claude Code access": https://code.claude.com/docs/en/overview
+  and https://code.claude.com/docs/en/setup. The setup page lists Pro, Max, Ultra, Team,
+  Enterprise or Console accounts.
+- Default permission mode `auto`: https://code.claude.com/docs/en/permission-modes
+- Free GitHub accounts need a public repo for Pages: "If the account that owns the repository
+  uses GitHub Free or GitHub Free for organizations, the repository must be public."
+  https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
 ## Queued, unscheduled, and not to be started unprompted
 
@@ -214,35 +265,57 @@ What is agreed but waiting, with a pointer to wherever the full proposal is writ
 - `docs/advanced/driving-other-apps.md`: Unity, Photoshop, Excel and similar.
 - `docs/advanced/mcp.md`: what MCP servers are, adding and using one.
 
-Done from this list as of 2026-11-07: `docs/_config.yml`, and `docs/index.md` as a
-placeholder that lists the planned pages as plain text, without links. Each item becomes a
-link when its page exists.
+Done from this list as of 2026-11-11: `README.md`, `docs/_config.yml`, `docs/index.md`
+and `docs/01-what-is-this.md`. Also done, outside the list: `docs/assets/css/style.scss`
+(D9). In both topic lists, an item is a link once its page exists and plain text until then.
+
+**Next page: `docs/02-terminal.md`.** Two things to carry into it:
+
+- Fenced code blocks with a language, such as ```` ```sh ````, get a `div.highlight`
+  wrapper. The theme's CSS gives it `background-color:#f8f8f8` and colors meant for a light
+  background (seen in the live CSS on 2026-11-10). Expect a light box around dark code. Fix
+  it in `style.scss` and check it on the live page with page 2's first code block.
+- Anthropic has its own beginner terminal guide at https://code.claude.com/docs/en/terminal-guide.
+  Read it before writing page 2. Not read as of 2026-11-11.
+
+**For page 3:** explain auto mode as the default and how to switch to Manual mode, where
+Claude Code asks first. Page 1 promises this. How to switch has not been checked yet.
+
+**Proposals not yet made:** keeping the live-page comparison and the list-sync check as
+scripts in the repo. Both ran on 2026-11-07 and 2026-11-10 as one-off scripts in a temporary
+folder that will not survive. A script in the repo is a surface, so propose it before
+writing it.
 
 **Owner actions, not the agent's:** pushing. Pages was turned on by the owner on 2026-11-07,
 source `main` and `/docs`, read back from the Pages API.
 
 ## Committed, pushed, released: three separate questions
 
-As of 2026-11-07, when this was written.
+As of 2026-11-11, when this was written.
 
 **Uncommitted.** `.claude/settings.json` is untracked. The owner has not said whether to
 commit it.
 
 **Unpushed.** Answer it with `git rev-list --left-right --count origin/main...main`. Snapshot
-from 2026-11-07, not to be trusted: `0 0` with `origin/main` at `29a144b`, before this
-update to `NEXT.md` was committed.
+from 2026-11-11, not to be trusted: `0 1` with `origin/main` at `374a402`. The unpushed
+commit was `94dc45a` (page 1). The commit that saves this file will make it two.
 
-**Unreleased or undeployed.** The website is the only thing deployed. Live at
-https://fbonds.github.io/vibe-coding-howto/ since 2026-11-07. The Pages build of `29a144b`
-reported `"status":"built"` with no error. The page fetched with a cache buster returned
-HTTP 200, its stylesheet link carried `?v=29a144b...`, and every piece of text in
-`docs/index.md` was found on it. That comparison was shown failing by adding a line not in
-the file, which it reported as missing. Not checked: how the page looks in a browser, and
-whether the page holds text that is not in `index.md`. The comparison script was a one-off
-in a temporary folder and is not in the repo.
+**Unreleased or undeployed.** The website is the only thing deployed, at
+https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of
+`374a402`, run `42887749725` on 2026-11-10, read on 2026-11-11 from the Pages API as
+`"status":"built"` with no error. On 2026-11-10 its live page and CSS were checked: the
+stylesheet link carried `?v=374a402...`, the live CSS held the new rules, and in Chrome the
+computed styles matched the preview (padding 60px, background rgb(5, 5, 8), heading width
+200.375px, footer line rgba(255, 255, 255, 0.1)). A search for a rule not in the file
+returned 0. Screenshots were taken but saved only to a temporary folder. Not checked: phone
+widths, browsers other than Chrome. Page 1 (`94dc45a`) is not deployed, because it is not
+pushed.
 
-The two earlier builds, of `788b435` and `154caf9`, failed because `docs/` did not exist
-yet. Jekyll stopped with `No such file or directory @ dir_chdir0 - /github/workspace/docs`.
+On 2026-11-10 the README's `docs/` link resolved on GitHub with HTTP 200, and a made-up path
+returned 404. The README GitHub served had blob SHA `91613a0`, the same as in `374a402`.
+
+Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet (Jekyll:
+`No such file or directory @ dir_chdir0 - /github/workspace/docs`). `29a144b` built.
 
 ## Open, not blocking
 
@@ -252,5 +325,11 @@ Anything known, unresolved, and not in the way.
 the website needs `.html`. The working assumption is that GitHub Pages converts `.md` links
 automatically by default. The build log of 2026-11-07 lists `jekyll-relative-links` among
 the plugins Pages loads, which is the plugin meant to do that. No link has been tested on the
-live site yet, because no page links to another. Verify it when the first one does, including
-a deliberately broken link to show the check can fail.
+live site yet. The first links are in `94dc45a`, not pushed as of 2026-11-11. Verify them
+after the push, including a deliberately broken link to show the check can fail.
+
+**Whether fletcherbonds.com will link to the guide**: the owner has not decided (2026-11-10).
+D9 matched the look in case it does.
+
+**`.claude/settings.json` deny patterns, untested.** Whether `Bash(git add . *)` and the
+others match the bare commands has not been tried.
