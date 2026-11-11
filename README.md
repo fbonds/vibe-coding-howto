@@ -12,7 +12,7 @@ website is built from those same files, so both always say the same thing.
 
 The guide is being written now. Pages will be linked here as each one is finished.
 
-1. What vibe coding, Claude Code, the command line and GitHub are
+1. [What vibe coding, Claude Code, the command line and GitHub are](docs/01-what-is-this.md)
 2. Using the terminal on Mac, Windows or Linux
 3. Installing Claude Code
 4. Setting up GitHub
