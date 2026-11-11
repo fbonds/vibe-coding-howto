@@ -16,7 +16,7 @@
 > are in `HOWTOSAVESTATE.md`. Stored memories load before any file and go stale the same
 > way: check them against the repo rather than trusting them.
 
-Updated 2026-11-11. Working state for VIBE-CODING-HOWTO. There is no separate design
+Updated 2026-11-11 (late). Working state for VIBE-CODING-HOWTO. There is no separate design
 document yet: the design is the Decided section below. The roadmap is the Queued section
 below. The public documentation is `docs/`, which GitHub Pages publishes as the website, and
 `README.md`.
@@ -33,7 +33,9 @@ the first time this project produces one**, since a local failure argues better 
 borrowed one. Do not delete an example and leave a bare rule behind.
 
 **1. No check counts as verified until it has been shown failing on deliberately broken
-input, and the report says what was broken.** A check that cannot fail is not evidence, and
+input, and the report says what was broken.** In this repo, on 2026-11-11, the owner said the
+rule is meant for software and that content checks, such as testing a page's links, can skip
+the deliberately broken case unless the check is a unit test. A check that cannot fail is not evidence, and
 it is indistinguishable from a passing one in the report. Three checks were once reported as
 verification when none of them could fail, and a guard test written to catch a drifted
 dependency tree was invalid because the build regenerated what had been stripped to break
@@ -212,25 +214,30 @@ release or deploy goes to the Committed, pushed, released section, with its date
 was checked, and anything else, such as a change made on a hosted service, goes to the
 section it belongs in.
 
-**Page 1, `docs/01-what-is-this.md`, committed as `94dc45a` on 2026-11-11, not pushed.** The
-same commit turned item 1 into a link in `docs/index.md` and `README.md`. After the owner
-pushes: check the Pages build of `94dc45a`, fetch the page, and test the link from the index
-on the live site, with a deliberately broken link to show the check can fail. That closes
-the links item under Open. Facts on the page and their sources, all checked 2026-11-10:
+**The whole guide is drafted and waiting for the owner's review (2026-11-11).** On
+2026-11-11 the owner said to "go full auto and build the entire site", then review it. That
+suspended proposal-before-code and one-item-at-a-time for this build only. Pages 3 to 6 and
+the four advanced pages were written without a proposal and committed one commit per page:
+`284c7a1` (page 3), `ecec352` (page 4), `47ac52d` (page 5), `e871b2c` (page 6), `50d92b2`
+(the four pages in `docs/advanced/`), `d4e568f` (both topic lists and page 2's footer). After
+the owner reviews and pushes: check the Pages build, fetch every page, and check the links
+between pages on the live site, including the `../` links from `docs/advanced/`, which no
+earlier page used.
 
-- Karpathy coined "vibe coding": his own post https://karpathy.bearblog.dev/year-in-review-2025/
-  (19 Dec 2025) says so and links the tweet x.com/karpathy/status/1886192184808149383. The
-  date, 2 February 2025, is decoded from that tweet ID (2025-02-02T23:17:15Z). The quote
-  "something anyone can do" is from the same post.
-- What Claude Code is, its forms (desktop app, web, editor plugins, CLI), supported systems
-  (macOS 13+, Windows 10 1809+, Ubuntu 20.04+, Debian 10+, Alpine 3.19+, 4 GB RAM) and "The
-  free claude.ai plan does not include Claude Code access": https://code.claude.com/docs/en/overview
-  and https://code.claude.com/docs/en/setup. The setup page lists Pro, Max, Ultra, Team,
-  Enterprise or Console accounts.
-- Default permission mode `auto`: https://code.claude.com/docs/en/permission-modes
-- Free GitHub accounts need a public repo for Pages: "If the account that owns the repository
-  uses GitHub Free or GitHub Free for organizations, the repository must be public."
-  https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
+Checked on 2026-11-11 before committing: every relative link in `README.md` and `docs/`
+points at a file that exists; no file contains an em dash; the two topic lists match (D8);
+every external link returned HTTP 200 except four that refuse automated requests with 403
+(`github.com/signup`, `claude.ai/directory`, the Microsoft AppSource listing, Adobe's
+connector page). The Adobe page was read with a browser-style fetch the same day. Page 5's
+commands were run on this Mac in a scratch folder and produced the three files on branch
+`main`. Each page ends with the date its facts were checked and links to its sources.
+
+Not checked: any command on Windows or Linux; `explorer .` and `xdg-open .` (no official doc
+says they open a folder, see page 2); the exact wording of `gh auth login`'s questions; the
+first-run screens of Claude Code beyond what Anthropic's docs describe; whether Homebrew
+installs git on a Mac; the Unity plan or licence requirement; whether Adobe for Claude
+controls the installed Photoshop app; `claude mcp add` was not run here, to avoid changing the
+owner's Claude Code config.
 
 ## Queued, unscheduled, and not to be started unprompted
 
@@ -265,21 +272,10 @@ What is agreed but waiting, with a pointer to wherever the full proposal is writ
 - `docs/advanced/driving-other-apps.md`: Unity, Photoshop, Excel and similar.
 - `docs/advanced/mcp.md`: what MCP servers are, adding and using one.
 
-Done from this list as of 2026-11-11: `README.md`, `docs/_config.yml`, `docs/index.md`
-and `docs/01-what-is-this.md`. Also done, outside the list: `docs/assets/css/style.scss`
-(D9). In both topic lists, an item is a link once its page exists and plain text until then.
-
-**Next page: `docs/02-terminal.md`.** Two things to carry into it:
-
-- Fenced code blocks with a language, such as ```` ```sh ````, get a `div.highlight`
-  wrapper. The theme's CSS gives it `background-color:#f8f8f8` and colors meant for a light
-  background (seen in the live CSS on 2026-11-10). Expect a light box around dark code. Fix
-  it in `style.scss` and check it on the live page with page 2's first code block.
-- Anthropic has its own beginner terminal guide at https://code.claude.com/docs/en/terminal-guide.
-  Read it before writing page 2. Not read as of 2026-11-11.
-
-**For page 3:** explain auto mode as the default and how to switch to Manual mode, where
-Claude Code asks first. Page 1 promises this. How to switch has not been checked yet.
+Every file on this list exists as of 2026-11-11, plus `docs/assets/css/style.scss` (D9).
+Page 5 sets project-kit up in the game's folder (`projects/my-first-game`), so page 6 builds
+the game there. Pages 1 and 2 are live; the rest are committed and wait on the owner's review
+and push.
 
 **Proposals not yet made:** keeping the live-page comparison and the list-sync check as
 scripts in the repo. Both ran on 2026-11-07 and 2026-11-10 as one-off scripts in a temporary
@@ -297,36 +293,26 @@ As of 2026-11-11, when this was written.
 commit it.
 
 **Unpushed.** Answer it with `git rev-list --left-right --count origin/main...main`. Snapshot
-from 2026-11-11, not to be trusted: `0 1` with `origin/main` at `374a402`. The unpushed
-commit was `94dc45a` (page 1). The commit that saves this file will make it two.
+from 2026-11-11, not to be trusted: `0 6` with `origin/main` at `29449d8`, before the commit
+that saves this file. The six are the pages listed under In flight.
 
 **Unreleased or undeployed.** The website is the only thing deployed, at
-https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of
-`374a402`, run `42887749725` on 2026-11-10, read on 2026-11-11 from the Pages API as
-`"status":"built"` with no error. On 2026-11-10 its live page and CSS were checked: the
-stylesheet link carried `?v=374a402...`, the live CSS held the new rules, and in Chrome the
-computed styles matched the preview (padding 60px, background rgb(5, 5, 8), heading width
-200.375px, footer line rgba(255, 255, 255, 0.1)). A search for a rule not in the file
-returned 0. Screenshots were taken but saved only to a temporary folder. Not checked: phone
-widths, browsers other than Chrome. Page 1 (`94dc45a`) is not deployed, because it is not
-pushed.
-
-On 2026-11-10 the README's `docs/` link resolved on GitHub with HTTP 200, and a made-up path
-returned 404. The README GitHub served had blob SHA `91613a0`, the same as in `374a402`.
+https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of `29449d8`,
+run `43120177058` on 2026-11-11, read from the Pages API as `"status":"built"` with no error.
+Fetched the same day with a cache buster: the index, page 1 and page 2 return HTTP 200; the
+index and page 1 link to `/vibe-coding-howto/02-terminal.html`; page 2 links back to the index
+and page 1. So `jekyll-relative-links` does turn `.md` links into working site links. In
+Chrome, page 2's code blocks have a transparent `div.highlight` and a `pre` of rgb(10, 10, 15),
+and the stylesheet carried `?v=29449d81...`. Not checked: phone widths, browsers other than
+Chrome, whether the Pages CDN can serve a stale page. Pages 3 to 6 and `docs/advanced/` are
+not deployed.
 
 Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet (Jekyll:
-`No such file or directory @ dir_chdir0 - /github/workspace/docs`). `29a144b` built.
+`No such file or directory @ dir_chdir0 - /github/workspace/docs`). The rest built.
 
 ## Open, not blocking
 
 Anything known, unresolved, and not in the way.
-
-**Links between pages, unverified as of 2026-11-07.** GitHub needs links to `.md` files and
-the website needs `.html`. The working assumption is that GitHub Pages converts `.md` links
-automatically by default. The build log of 2026-11-07 lists `jekyll-relative-links` among
-the plugins Pages loads, which is the plugin meant to do that. No link has been tested on the
-live site yet. The first links are in `94dc45a`, not pushed as of 2026-11-11. Verify them
-after the push, including a deliberately broken link to show the check can fail.
 
 **Whether fletcherbonds.com will link to the guide**: the owner has not decided (2026-11-10).
 D9 matched the look in case it does.
