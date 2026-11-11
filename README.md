@@ -13,7 +13,7 @@ website is built from those same files, so both always say the same thing.
 The guide is being written now. Pages will be linked here as each one is finished.
 
 1. [What vibe coding, Claude Code, the command line and GitHub are](docs/01-what-is-this.md)
-2. Using the terminal on Mac, Windows or Linux
+2. [Using the terminal on Mac, Windows or Linux](docs/02-terminal.md)
 3. Installing Claude Code
 4. Setting up GitHub
 5. Using [project-kit](https://github.com/fbonds/project-kit) to keep your project on track

@@ -130,6 +130,11 @@ body {
   background-color: transparent;
 }
 
+// Code blocks are wrapped in div.highlight, which the theme paints light gray (#f8f8f8).
+.markdown-body .highlight {
+  background-color: transparent;
+}
+
 // Quotes, rules and tables
 .markdown-body blockquote {
   color: var(--text-muted);

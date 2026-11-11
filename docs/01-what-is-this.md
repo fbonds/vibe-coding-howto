@@ -80,4 +80,4 @@ Claude Code knows how to use git, so you can ask it in plain English to save a s
 
 Facts on this page were last checked on 10 November 2026.
 
-[Back to the start](index.md) | Next: Using the terminal (coming soon)
+[Back to the start](index.md) | Next: [Using the terminal](02-terminal.md)

@@ -9,7 +9,7 @@ The guide is being written now. The pages below will become links as each one is
 ## Reading order
 
 1. [What vibe coding, Claude Code, the command line and GitHub are](01-what-is-this.md)
-2. Using the terminal on Mac, Windows or Linux
+2. [Using the terminal on Mac, Windows or Linux](02-terminal.md)
 3. Installing Claude Code
 4. Setting up GitHub
 5. Using project-kit to keep your project on track
