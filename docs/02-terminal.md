@@ -149,4 +149,4 @@ does not delete anything.
 Facts on this page were last checked on 11 November 2026.
 
 [Back to the start](index.md) | Previous: [What this is all about](01-what-is-this.md) | Next:
-Installing Claude Code (coming soon)
+[Installing Claude Code](03-install-claude-code.md)
