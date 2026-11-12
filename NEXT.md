@@ -219,10 +219,9 @@ section it belongs in.
 suspended proposal-before-code and one-item-at-a-time for this build only. Pages 3 to 6 and
 the four advanced pages were written without a proposal and committed one commit per page:
 `284c7a1` (page 3), `ecec352` (page 4), `47ac52d` (page 5), `e871b2c` (page 6), `50d92b2`
-(the four pages in `docs/advanced/`), `d4e568f` (both topic lists and page 2's footer). After
-the owner reviews and pushes: check the Pages build, fetch every page, and check the links
-between pages on the live site, including the `../` links from `docs/advanced/`, which no
-earlier page used.
+(the four pages in `docs/advanced/`), `d4e568f` (both topic lists and page 2's footer). The
+owner pushed them on 2026-11-11 and they are live (see Unreleased below). The owner's review
+of their content is still to come.
 
 Checked on 2026-11-11 before committing: every relative link in `README.md` and `docs/`
 points at a file that exists; no file contains an em dash; the two topic lists match (D8);
@@ -297,15 +296,17 @@ from 2026-11-11, not to be trusted: `0 6` with `origin/main` at `29449d8`, befor
 that saves this file. The six are the pages listed under In flight.
 
 **Unreleased or undeployed.** The website is the only thing deployed, at
-https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of `29449d8`,
-run `43120177058` on 2026-11-11, read from the Pages API as `"status":"built"` with no error.
-Fetched the same day with a cache buster: the index, page 1 and page 2 return HTTP 200; the
-index and page 1 link to `/vibe-coding-howto/02-terminal.html`; page 2 links back to the index
-and page 1. So `jekyll-relative-links` does turn `.md` links into working site links. In
-Chrome, page 2's code blocks have a transparent `div.highlight` and a `pre` of rgb(10, 10, 15),
-and the stylesheet carried `?v=29449d81...`. Not checked: phone widths, browsers other than
-Chrome, whether the Pages CDN can serve a stale page. Pages 3 to 6 and `docs/advanced/` are
-not deployed.
+https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of `61cff8a`,
+run `43126830293` on 2026-11-11, read from the Pages API as `"status":"built"` with no error.
+The same day a script crawled the live site from the index with a cache buster and followed
+every internal link: the index, the six numbered pages and the four `advanced/` pages all
+returned HTTP 200, no link still pointed at a `.md` file, and each new page carried its
+"last checked on 11 November 2026" line. The `../` links in `docs/advanced/` became
+`/vibe-coding-howto/` links. The theme links a `favicon.ico` that does not exist (HTTP 404;
+one earlier fetch gave 503), so the site has no tab icon. On 2026-11-11 page 2's code blocks
+were checked in Chrome: transparent `div.highlight`, `pre` rgb(10, 10, 15). Not checked: the
+new pages in a browser, phone widths, browsers other than Chrome, whether the Pages CDN can
+serve a stale page.
 
 Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet (Jekyll:
 `No such file or directory @ dir_chdir0 - /github/workspace/docs`). The rest built.
