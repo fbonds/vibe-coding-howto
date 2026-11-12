@@ -16,7 +16,7 @@
 > are in `HOWTOSAVESTATE.md`. Stored memories load before any file and go stale the same
 > way: check them against the repo rather than trusting them.
 
-Updated 2026-11-11 (late). Working state for VIBE-CODING-HOWTO. There is no separate design
+Updated 2026-11-12. Working state for VIBE-CODING-HOWTO. There is no separate design
 document yet: the design is the Decided section below. The roadmap is the Queued section
 below. The public documentation is `docs/`, which GitHub Pages publishes as the website, and
 `README.md`.
@@ -206,6 +206,22 @@ which the site draws with JavaScript and would need a custom layout. That would 
 proposal. The look applies to the website only. GitHub shows the same `.md` files in its own
 style.
 
+**D10, 2026-11-12. The site icon is a terminal prompt `>_`** in the D9 colors, at
+`docs/assets/images/favicon.svg`. It is linked from `docs/_includes/head-custom.html`, which
+replaces the Primer theme's include of the same name. The theme's own copy has its favicon
+line commented out and adds an analytics snippet the guide does not use. Ruled out: the icon
+fletcherbonds.com declares, `/vite.svg`, because it is byte for byte the Vite starter
+template's logo (v5.4.0), not the owner's. Not checked: browsers that cannot show SVG icons,
+such as older Safari, which may show none.
+
+**D11, 2026-11-12. When the guide is shown inside another site's frame, links to other
+sites open in a new tab** (`target="_blank"`, `rel="noopener"`). The owner said the guide
+will be embedded in another page and supplied a script using `_top`. The script is in
+`docs/_includes/head-custom.html` with a comment giving the reason. Ruled out: `_top`, which
+replaces the embedding page, so a reader sent off to sign up or install something loses
+their place in the guide. Links between guide pages stay in the frame. If the embedding
+iframe uses `sandbox`, it needs `allow-popups` for these links to open.
+
 ## In flight
 
 What is being worked on now, and what state it is in. Remove an item when it is finished,
@@ -286,27 +302,39 @@ source `main` and `/docs`, read back from the Pages API.
 
 ## Committed, pushed, released: three separate questions
 
-As of 2026-11-11, when this was written.
+As of 2026-11-12, when this was written.
 
 **Uncommitted.** `.claude/settings.json` is untracked. The owner has not said whether to
 commit it.
 
 **Unpushed.** Answer it with `git rev-list --left-right --count origin/main...main`. Snapshot
-from 2026-11-11, not to be trusted: `0 6` with `origin/main` at `29449d8`, before the commit
-that saves this file. The six are the pages listed under In flight.
+from 2026-11-12, not to be trusted: `0 0` with `origin/main` at `b8b2ce8`, before the commit
+that saves this file.
 
 **Unreleased or undeployed.** The website is the only thing deployed, at
-https://fbonds.github.io/vibe-coding-howto/. The last deploy is the Pages build of `61cff8a`,
+https://fbonds.github.io/vibe-coding-howto/. The last full-site check was on the Pages build of `61cff8a`,
 run `43126830293` on 2026-11-11, read from the Pages API as `"status":"built"` with no error.
 The same day a script crawled the live site from the index with a cache buster and followed
 every internal link: the index, the six numbered pages and the four `advanced/` pages all
 returned HTTP 200, no link still pointed at a `.md` file, and each new page carried its
 "last checked on 11 November 2026" line. The `../` links in `docs/advanced/` became
-`/vibe-coding-howto/` links. The theme links a `favicon.ico` that does not exist (HTTP 404;
-one earlier fetch gave 503), so the site has no tab icon. On 2026-11-11 page 2's code blocks
+`/vibe-coding-howto/` links. On 2026-11-11 page 2's code blocks
 were checked in Chrome: transparent `div.highlight`, `pre` rgb(10, 10, 15). Not checked: the
 new pages in a browser, phone widths, browsers other than Chrome, whether the Pages CDN can
 serve a stale page.
+
+Since then, `b8b2ce8` (D10, D11) built in run `43269014987` on 2026-11-12, conclusion
+`success`. Fetched with a cache buster that day: the index, `04-github.html` and
+`advanced/mcp.html` each carry the icon link and the framed-links script;
+`assets/images/favicon.svg` returned 200 as `image/svg+xml` and matched the repo file byte
+for byte (a misspelled icon path returned 404). Before committing, the script was run in
+Chrome on this Mac: a test page whose head was the include file, framed from another port.
+The external link got `_blank` and `noopener`; links to another page, a `#` anchor, `mailto:`
+and a link with its own target were left alone; opened directly, nothing changed. With the
+script removed, the external link kept no target. Not checked: the real embedding page, a
+sandboxed iframe, browsers other than Chrome, clicking the links. Earlier, a note here said
+the theme linked a missing `favicon.ico`. The theme does not. The 404 was the browser asking
+for that file by default.
 
 Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet (Jekyll:
 `No such file or directory @ dir_chdir0 - /github/workspace/docs`). The rest built.
@@ -316,7 +344,8 @@ Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet
 Anything known, unresolved, and not in the way.
 
 **Whether fletcherbonds.com will link to the guide**: the owner has not decided (2026-11-10).
-D9 matched the look in case it does.
+D9 matched the look in case it does. On 2026-11-12 the owner said the guide will be
+embedded in another page (D11). Which page has not been recorded.
 
 **`.claude/settings.json` deny patterns, untested.** Whether `Bash(git add . *)` and the
 others match the bare commands has not been tried.
