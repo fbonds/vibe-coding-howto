@@ -68,8 +68,9 @@ link and the framed-links script, D10 and D11). The topic list in `index.md`
 must match the one in `README.md` (D8).
 
 **5. `.claude/settings.json`, agent guardrails.** Blocks `git push` and the bulk staging and
-commit commands, and runs the session-start re-check. Untracked as of 2026-11-07. Whether
-its deny patterns match the bare commands has not been tested.
+commit commands, and runs the session-start re-check. Untracked, and stays that way: on
+2026-11-12 the owner said this project does not need it committed. Whether its deny patterns
+match the bare commands has not been tested.
 
 ## Step 1: check the external world, now
 

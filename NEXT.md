@@ -216,7 +216,7 @@ such as older Safari, which may show none.
 
 **D11, 2026-11-12. When the guide is shown inside another site's frame, links to other
 sites open in a new tab** (`target="_blank"`, `rel="noopener"`). The owner said the guide
-will be embedded in another page and supplied a script using `_top`. The script is in
+will be embedded in fletcherbonds.com and supplied a script using `_top`. The script is in
 `docs/_includes/head-custom.html` with a comment giving the reason. Ruled out: `_top`, which
 replaces the embedding page, so a reader sent off to sign up or install something loses
 their place in the guide. Links between guide pages stay in the frame. If the embedding
@@ -304,8 +304,9 @@ source `main` and `/docs`, read back from the Pages API.
 
 As of 2026-11-12, when this was written.
 
-**Uncommitted.** `.claude/settings.json` is untracked. The owner has not said whether to
-commit it.
+**Uncommitted.** `.claude/settings.json` is untracked and stays that way. On 2026-11-12 the
+owner said not to commit it, because this project does not need it. It still applies to
+sessions run on the owner's Mac.
 
 **Unpushed.** Answer it with `git rev-list --left-right --count origin/main...main`. Snapshot
 from 2026-11-12, not to be trusted: `0 0` with `origin/main` at `b8b2ce8`, before the commit
@@ -343,9 +344,10 @@ Earlier builds: `788b435` and `154caf9` failed because `docs/` did not exist yet
 
 Anything known, unresolved, and not in the way.
 
-**Whether fletcherbonds.com will link to the guide**: the owner has not decided (2026-11-10).
-D9 matched the look in case it does. On 2026-11-12 the owner said the guide will be
-embedded in another page (D11). Which page has not been recorded.
+**The guide embedded in fletcherbonds.com, not yet checked.** On 2026-11-12 the owner said
+fletcherbonds.com will embed the guide (D11). When it does, check on the live site that the
+iframe has no `sandbox` attribute or allows `allow-popups`, and that a link to another site
+opens in a new tab. D9 matched the look for this.
 
 **`.claude/settings.json` deny patterns, untested.** Whether `Bash(git add . *)` and the
 others match the bare commands has not been tried.
